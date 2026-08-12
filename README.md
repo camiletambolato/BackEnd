@@ -153,7 +153,6 @@ Declarar variáveis é alocar um espaço na memória que permite a inclusão e m
 - pode ser criada usando "const" ou "define"
 - não permitem interpolação
 ---
-
 ### Estudo de Operadores 
 
  **Aritméticos**: São usados para realizar cálculos.
@@ -185,13 +184,15 @@ Declarar variáveis é alocar um espaço na memória que permite a inclusão e m
 
  **Lógicos**: Permite a combinação entre sentenças.
 
- - operador AND (E) => && : para o resultado ser verdadeiro, TODAS as Combinações precisam ser verdadeiras
+ - operador `AND` (E) => && : para o resultado ser verdadeiro, TODAS as Combinações precisam ser verdadeiras
   - true && true => true
   - true && false => false
-  - Operador OR (OU) => || : para o resultado ser verdadeiro, basta APENAS UMA condição ser verdadeira
+
+  - Operador `OR` (OU) => || : para o resultado ser verdadeiro, basta APENAS UMA condição ser verdadeira
   - false || true => true
   - false || false => false
-  - Operador NOT (Não) => ! : Inverte a lógica da Sentença
+
+  - Operador `NOT` (Não) => ! : Inverte a lógica da Sentença
   - !true => false
   - !false => true 
   ---
