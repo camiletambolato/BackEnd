@@ -80,3 +80,5 @@ $salarioLiquido = ($salarioBruto - $descontoInss) - DESCONTO_VT;
      </table>
 </body>
 </html>
+<!--  php -S localhost:8080 -->
+<!-- (http://localhost:8080) -->
