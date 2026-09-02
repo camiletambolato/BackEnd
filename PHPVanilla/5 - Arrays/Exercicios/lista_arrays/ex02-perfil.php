@@ -29,7 +29,7 @@ if ($usuario["premium"] === true) {
     color: rgb(121, 98, 84);
     background-color: rgb(228, 216, 184);
     padding: 10px 20px;
-    border-radius: 15px;
+    border-radius: 10px;
     display: inline-block;
 ">
 
