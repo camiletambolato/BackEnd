@@ -1,0 +1,5 @@
+# Arquivos que serão ignirados na hora de fazer versionamentos
+# esses arquivos serão armazenados apenas no computador de forma local
+
+config/database.ini
+logs

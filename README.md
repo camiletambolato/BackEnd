@@ -1259,5 +1259,5 @@ Quando uma tentativa de conexão falha (servidor desligado, senha incorreta, por
 
 **Práticas Recomendas de Segurança** (AppSec):
 
-* ** Para o Usuário**: Exibir mensagens amigáveis e genéricas: *Não foi possível processar sua solicitação. tente novamente mais tarde*
+* **Para o Usuário**: Exibir mensagens amigáveis e genéricas: *Não foi possível processar sua solicitação. tente novamente mais tarde*
 * **Para a Equipe de Desenvolvimento**: Gravar os detalhes técnicos completos com timestamp em uma arquivo de log seguro (`logs/database.log`).
