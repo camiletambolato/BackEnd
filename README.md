@@ -1795,7 +1795,7 @@ class TitularSemProperty {
 }
 ```
 
-#### **Herança, ClasseS Abstratas e Polimorfismo**
+#### **Herança, Classes Abstratas e Polimorfismo**
 
 **Classes Abstratas**: Uma classe abstrata é uma superclasse conceitual que **não pode ser instanciada diretamente com `new`**. EEla serve como matriz para que subclasses concretas sejam derivadas.
 
