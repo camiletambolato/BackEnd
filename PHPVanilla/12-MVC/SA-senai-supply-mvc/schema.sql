@@ -1,6 +1,6 @@
 -- schema.sql: Estrutura relacional do SENAI Supply MVC
 --0. Criação do Banco de Dados (se ainda não existir)
-CREATE DATABASE senai_suplly_mvc;
+CREATE DATABASE senai_supply_mvc;
 
 -- 1. Tabela de Usuários com Perfil RBAC
 CREATE TABLE IF NOT EXISTS usuarios (
