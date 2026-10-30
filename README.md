@@ -2084,3 +2084,34 @@ Por razões estritas de **Segurança da Informação**:
 1. O servidor web aponta sua raiz estritamente para a pasta `public/`.
 2. As pastas `src/`, `config/`, `vendor/` e os arquivos `.ini` e `.env` ficam **um nível acima da raiz pública**.
 3. Mesmo que um atacante tente digitar diretamente a URL de um arquivo sensível (ex.: `http://site.com/config/database.ini`), o servidor web bloqueia o acesso, pois o arquivo não reside na pasta pública.
+
+---
+
+### Semana 13 - Framework Laravel e Artisan CLI
+
+**Tema:** Introdução ao Framework Laravel, Evolução da Arrquitetura MVC Artesanal para o Ecossistema Laravel, Estrutura Enxuta, Mapeamento de Dirtórios (`app/`, `config/`, `database/`, etc), Gestão de Segurança de Ambientes, Criptografia de Aplicação (APP_KEY) Ferramenta de Linha de Comando Artisan CLI (Command Line Interface), Ciclo de Vida no Framework e Criação da Primeira Aplicação da Primeira Aplicação Laravel
+
+#### **1. A Evolução do MVC**
+
+Ao longo das últimas semanas estudamos a estrutura de projetos em PHP e agora vamos começar com o módulo 3 - Laravel
+
+>Construir o MVC artesanal na semana 12 oi como desmontar e forjar a mão cada engrenagem, pistão e freio de um motor automotivo. Agora que você compreendeu como o montor funciona, não precis mais reinventar a roda em cada nova fase, você já assume a cabine do piloto de formula 1 de útima geração.
+
+**O que é o Framework Laravel**
+
+Criado em 2011 por Taylor Otwell, o *Laravel* é atualmente o frmework backend mais popular e consolidado do mundo. Ele adota o princípio de *Convenção sobre Configuração* e entrega os seguintes conteúdos:
+1. **Produtividade Imediata**: Estrutura padronizada onde o desnvolvedor sênior sabe exatamente onde encontrar conrollers, models, rotas e views.
+2. **Segurança por padrão (Security by Default)**: Proteção nativa e automática contra XSS, CDRF, SQL Injection, manipulação indevida de cookies e fixação de sessão.
+3. **Ferramenta de Linha de Comando (Artisan CLI)**: Automatiza a criação de classes, execução de migrações de banco, limpeza de cache e signósticos.
+4. **Comunidade Global e Ecossistema Rico**: Milhares de pacotes prontos para autenticação robusta, mensageria, fila assincronas, geração de APIs Restful e websockets.
+
+
+ Componente Arquitetural | No Seu MVC Artesanal (Semana 12) | No Framework Laravel (Semana 13+) | Vantagem Competitiva no Mercado |
+| :--- | :--- | :--- | :--- |
+| **Ponto Único de Entrada** | `public/index.php` | `public/index.php` | Mesma raiz segura: isola todo o código-fonte da web pública. |
+| **Autoload de Classes** | `composer.json` (PSR-4: `"App\\": "src/"`) | `composer.json` (PSR-4: `"App\\": "app/"`) | Padrão unificado internacional da PHP-FIG. |
+| **Mecanismo de Roteamento** | `App\Core\Roteador` com array interno | `routes/web.php` e `routes/console.php` | Roteamento declarativo com middlewares, parâmetros dinâmicos e grupos de rotas. |
+| **Camada de Controle** | `App\Controllers\ProdutoController` | `App\Http\Controllers\AtivoController` | Integração automática com Injeção de Dependências e validação de Form Requests. |
+| **Camada de Dados (Model)** | `App\Models\Produto` com PDO manual | `App\Models\Ativo` (*Eloquent ORM*) | Mapeamento Objeto-Relacional avançado com relacionamentos expressivos (`hasMany`, `belongsTo`). |
+| **Camada de Visualização** | Scripts PHP nativos com `extract()` | Motor de Templates **Blade** (`.blade.php`) | Sintaxe limpa, herança de layouts, componentes reutilizáveis e escape automático contra XSS. |
+| **Isolamento de Credenciais** | `config/database.ini` | Arquivo `.env` (Padrão 12-Factor App) | Paridade entre ambientes (local, homologação e nuvem) com segurança estrita. |
