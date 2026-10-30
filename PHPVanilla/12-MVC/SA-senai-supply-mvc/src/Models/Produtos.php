@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+namespace app\Models;
+
+use App\Core\ConexaoBanco;
 use PDO;
 
 final class Produto{
@@ -16,7 +19,7 @@ final class Produto{
         return self::pdo()->query($sql)->fetchAll();
     }
 
-    //Localizar um Produto pelo Código (ID)
+    //Localizar um Porduto pelo Código (ID)
     public static function buscarPorId(int $id): ?array {
         $sql = "SELECT id, nome, categoria, preco, estoque FROM produtos WHERE id = :id LIMIT 1";
         $stmt = self::pdo()->prepare($sql);

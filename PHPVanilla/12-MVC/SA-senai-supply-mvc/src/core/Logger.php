@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Core;
 //Serviço de centralização de logs corporativos para persistência na raiz do sistema
 
 final class Logger{
