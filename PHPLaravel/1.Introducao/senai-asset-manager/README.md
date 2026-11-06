@@ -162,4 +162,25 @@ Execute a sequência de 7 testes de validação técnica no laboratório:
 
    ---
 
-   
+# COntinuando a palicação - Criação do Módulo Gerenciamento de Clientes
+
+## Criação do Model e Migração do Banco de Dados
+
+Criaro arquivo de migração e o model com o comando
+
+`php artisan make: model Cliente -m`
+
+- um arquivo no `database/migration` -> inserir a tabela no banco de dados
+- um arquivo no `app/Model` -> gerenciador do modelo de relacional
+
+comando para automação do banco 
+
+`php artisan migrate`
+
+## Criar o Controller de Reecursos para a Entidade Cliente
+
+Executar o comando
+
+`php artisan make:controller ClienteController --resource`
+
+- um arquivo é criado em `app/Htttp/Controllers/ClienteController.php`
