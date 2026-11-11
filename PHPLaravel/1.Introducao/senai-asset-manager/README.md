@@ -162,13 +162,15 @@ Execute a sequência de 7 testes de validação técnica no laboratório:
 
    ---
 
-# COntinuando a palicação - Criação do Módulo Gerenciamento de Clientes
+# Continuando a aplicação - Criação do Módulo Gerenciamento de Clientes
 
 ## Criação do Model e Migração do Banco de Dados
 
-Criaro arquivo de migração e o model com o comando
+Criar o arquivo de migração e o model com o comando
 
 `php artisan make: model Cliente -m`
+
+> OBS: ao usar a flag `-m` o Laravel cria 2 arquivos o Model e o migration
 
 - um arquivo no `database/migration` -> inserir a tabela no banco de dados
 - um arquivo no `app/Model` -> gerenciador do modelo de relacional
@@ -183,4 +185,84 @@ Executar o comando
 
 `php artisan make:controller ClienteController --resource`
 
+> OBS: ao usar a flag `--resouce` são criados 7 métodos automaticamente dentro do controller
+
 - um arquivo é criado em `app/Htttp/Controllers/ClienteController.php`
+
+contendo os 7 método de assinatura do resource
+
+## Criar as rotas nomeadas para os controller dentro do Arquivo (`routes/web.php`)
+
+Depois de criar o model, executar a migração e implementar o controller, vamos declarar as rot\as do módulo em `routes/web.php`
+
+Uso do elemento resource para gerar todas as rotas do controller
+
+`Route::resource()` => Gera todas as rotas do Controller
+
+## Construção das Views Blade
+
+Criar o dirório `resources/views/clientes` => 
+
+Criar os arquivos dentro dsa pasta `/clientes`
+
+index.blade.php
+create.blade.php
+show.blade.php
+edit.blade.php
+
+
+## Execute a sequência de 7 testes no laboratório:
+
+1. **Teste 1 — Listagem Geral e Inspeção das Rotas (`GET /clientes`):**  
+   Acesse no navegador `http://localhost:8000/clientes`.  
+   *Resultado Esperado:* A tabela renderiza os 3 clientes iniciais de teste com botões de ação RESTful.
+![alt text](image.png)
+
+---
+
+2. **Teste 2 — Cadastro via Verbo POST e Proteção Anti-CSRF (`POST /clientes`):**  
+   Clique em **+ Cadastrar Parceiro**, informe Razão Social *"Siemens Automação"*, CNPJ *"12.345.678/0001-90"*, setor *"Robótica"* e submeta.  
+   *Resultado Esperado:* A requisição POST é validada com `@csrf`, redireciona para a lista exibindo a mensagem verde *"Cliente cadastrado com sucesso!"* e o novo registro #4 no rodapé da tabela.
+![alt text](image-1.png)
+
+---
+
+3. **Teste 3 — Exibição de Ficha Técnica (`GET /clientes/{id}`):**  
+   Clique no botão **Ficha** do cliente #4.  
+   *Resultado Esperado:* A rota invoca `show(4)` e renderiza a ficha técnica detalhada.
+![alt text](image-2.png)
+
+---
+
+4. **Teste 4 — Teste de Constraint com Falha Intencional (404 Automático):**  
+   Tente digitar manualmente na barra de endereços do navegador: `http://localhost:8000/clientes/palavra`.  
+   *Resultado Esperado:* Resposta HTTP 404 imediata. O constraint `whereNumber('cliente')` barrou a requisição antes mesmo de invocar o controller!
+![alt text](image-3.png)
+
+---
+
+5. **Teste 5 — Atualização com Method Spoofing (`PUT /clientes/{id}`):**  
+   Entre em **Editar**, mude a Razão Social para *"Siemens Energy & Automation"* e envie.  
+   Abra o DevTools (**F12 ➔ Network/Rede**) ao enviar:  
+   *Resultado Esperado:* O formulário envia um POST com payload contendo `_method: PUT` e `_token: ...`. O Laravel despacha para a ação `update()` e salva as alterações.
+![alt text](image-4.png)
+
+---
+
+6. **Teste 6 — Exclusão Segura via Verbo DELETE (`DELETE /clientes/{id}`):**  
+   Clique no botão vermelho **Excluir** do cliente #4 e confirme a caixa de diálogo.  
+   *Resultado Esperado:* A requisição DELETE remove o item da sessão e recarrega a tabela sem o parceiro excluído.
+![alt text](image-5.png)
+
+![alt text](image-6.png)
+
+---
+
+7. **Teste 7 — Simulação de Falha de Segurança CSRF (HTTP 419):**  
+   No arquivo `resources/views/clientes/create.blade.php`, comente temporariamente a linha `@csrf` e tente cadastrar um novo cliente.  
+   *Resultado Esperado:* O Laravel bloqueia a requisição e exibe a tela de erro **419 | PAGE EXPIRED**, comprovando a proteção ativa do middleware `VerifyCsrfToken`!  
+   *Restauração:* Descomente a diretiva `@csrf` e recarregue.
+
+![alt text](image-7.png)
+
+---
