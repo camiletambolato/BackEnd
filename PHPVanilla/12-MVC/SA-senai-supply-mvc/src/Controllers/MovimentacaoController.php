@@ -6,8 +6,9 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Core\Guard\AuthGuard;
 use App\Models\Movimentacao;
-use app\Models\Produto;
+use App\Models\Produto;
 use DomainException;
+
 
 final class MovimentacaoController extends Controller {
 
@@ -50,7 +51,9 @@ final class MovimentacaoController extends Controller {
         }
     }
 
+
     //listar os histórico de movimentações
+
     public function historico(): void {
         $movimentacoes = Movimentacao::listarHistorico(50);
         $this->renderizar('movimentacoes/historico', [

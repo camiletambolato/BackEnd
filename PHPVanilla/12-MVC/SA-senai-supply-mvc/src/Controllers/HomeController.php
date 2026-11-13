@@ -17,7 +17,7 @@ final class HomeController extends Controller {
 
         $this->renderizar("home/index", [
             "titulo"                => "Painel de Controle do Almoxarifado",
-            "totalInsumos"          => $totalInsumos,
+            "totalInsumo"           => $totalInsumos,
             "totalEstoque"          => $totalEstoque,
             "ultimasMovimentacoes"  => $ultimasMovimentacoes
         ]);

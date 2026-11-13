@@ -2,7 +2,7 @@
 
 ## 1 . Criação da Aplicação Laravel
 
-**⤳** Abra o terminar do VS code na Pasta que deseja adicionar o projeto 
+**⤳** Abra o terminal do VS code na Pasta que deseja adicionar o projeto 
 
 ```bash
 php --version       # verifica a versão do PHP
@@ -20,7 +20,7 @@ cd nome-do-projeto
 
 **⤳** Abrir o arquivo e configurar os parâmetros 
 
-**⤳** configurr as informações das variáveis de Ambiente para o projeto
+**⤳** configurar as informações das variáveis de Ambiente para o projeto
 
 **⤳** e inserir a chave de criptografia caso não tenha
 
@@ -70,7 +70,7 @@ um para listar em um json as informações do servidor
 **⤳** uma de ativos mokados,
 um de status da infra
 
-## 6. Caada de Visualização `Blade`
+## 6. Camada de Visualização `Blade`
 
 `resources/views`
 
@@ -179,7 +179,7 @@ comando para automação do banco
 
 `php artisan migrate`
 
-## Criar o Controller de Reecursos para a Entidade Cliente
+## Criar o Controller de Recursos para a Entidade Cliente
 
 Executar o comando
 
@@ -201,9 +201,9 @@ Uso do elemento resource para gerar todas as rotas do controller
 
 ## Construção das Views Blade
 
-Criar o dirório `resources/views/clientes` => 
+Criar o diretório `resources/views/clientes` => 
 
-Criar os arquivos dentro dsa pasta `/clientes`
+Criar os arquivos dentro da pasta `/clientes`
 
 index.blade.php
 create.blade.php

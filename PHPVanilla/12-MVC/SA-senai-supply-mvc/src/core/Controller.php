@@ -1,8 +1,11 @@
 <?php
 declare(strict_types=1);
+
 namespace App\Core;
-//classe base para os controller (superclasse Controller)
+
 use RuntimeException;
+
+//classe base para os controller (superclasse Controller)
 
 abstract class Controller {
     //classe abstrata com elementos de segurança e renderização de layout

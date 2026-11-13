@@ -7,6 +7,7 @@ use App\Core\Controller;
 use App\Models\Usuario;
 use App\Core\Logger;
 
+
 final class AuthController extends Controller {
     // abrir o formulário de login
     public function formularioLogin(): void {
@@ -26,7 +27,7 @@ final class AuthController extends Controller {
         $senha = (string)($_POST['senha'] ?? '');
         $usuario = Usuario::buscarPorEmail($email);
 
-        if ($usuario && password_verify($senha, $usuario['senha_hash'])) {
+        if ($usuario && $senha === $usuario['senha_hash']) {
             session_regenerate_id(true);
             $_SESSION['usuario_id']     = (int)$usuario['id'];
             $_SESSION['usuario_nome']   = $usuario['nome'];

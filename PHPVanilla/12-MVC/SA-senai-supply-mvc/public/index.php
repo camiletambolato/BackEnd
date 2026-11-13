@@ -17,7 +17,6 @@ use App\Controllers\HomeController;
 use App\Controllers\ProdutoController;
 use App\Controllers\MovimentacaoController;
 
-
 $roteador = new Roteador();
 
 //1. rotas Publicas (Qualquer Pessoa pode acessar)

@@ -2,12 +2,13 @@
 declare(strict_types=1);
 
 namespace App\Core;
+
 //Serviço de centralização de logs corporativos para persistência na raiz do sistema
 
 final class Logger{
     //Registrar eventos de Log para Auditoria
     //função para gravar no arquivo de log
-    private static function gravar(string $nivel, string $mensagem, array$contexto): void{
+    private static function gravar(string $nivel, string $mensagem, array $contexto): void{
         $caminhoDir = dirname(__DIR__, 2) . "/logs";
         if(!is_dir($caminhoDir)){
             //se não exisitr o arquivo crie o arquivo
@@ -20,25 +21,25 @@ final class Logger{
         file_put_contents($caminhoDir . '/app.log', $linha, FILE_APPEND | LOCK_EX);
     }
 
-    //Criar métodos para identificação de logs
-    //Registrar ventos informativos de auditoria
+    //criar métodos para identificação de logs
+    //Registrar enventos informativos de auditoria
     public static function info(string $mensagem, array $contexto=[]):void{
-        self::gravar("INFO", $mensagem, $contexto);
+        self::gravar("INFO",$mensagem, $contexto);
     }
 
-    //Registro de aviso - Violações de regras de negócio
+    //Registro de aviso - Violações de Regras de Negócio
     public static function aviso(string $mensagem, array $contexto=[]):void{
-        self::gravar("AVISO", $mensagem, $contexto);
+        self::gravar("AVISO" , $mensagem, $contexto);
     }
 
-    //Registro de falha de erro - Execução crítica
+    //Registro de falha de erro - execução crítica
     public static function erro(string $mensagem, array $contexto=[]):void{
         self::gravar("ERRO" , $mensagem, $contexto);
     }
 
-    // obs: métodos ou atributos "static" -> são executados ou chamados diretamente pela classe
+    // obs: métodos ou atributos "static" -> são executados ou chamados diretamente pela classe 
     // sem a necessidade de instanciar um obj
-    // podemos fazer uma analogia a um obj descartável,
-    // serve apenas para uma única tare4fa depois é jogado fora
+    // podemos fazer uma analogia a um obj descartavel,
+    // serve apenas para uma única tarefa e depois é jogado fora
     // evitando ocupar espaço na memória
 }
