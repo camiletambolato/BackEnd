@@ -16,7 +16,7 @@ composer create-project laravel/laravel nome-do-projeto
 cd nome-do-projeto
 ```
 
-## 2. Configurar o arquvio de blidagem `.env`
+## 2. Configurar o arquvio de blindagem `.env`
 
 **⤳** Abrir o arquivo e configurar os parâmetros 
 
