@@ -60,3 +60,11 @@ erDiagram
 Comando no Artisan 
 `php artisan make:model Equipamento -m`
 `php artisan make:model OrdemServico -m`
+
+## Criação da Camada de Controllers (`app/Http/Controllers`)
+
+São métodos que aplicam a injeção de dependências e organizam a lógica antes de invocar a view correspondente
+
+`php artisan make:controller DashboardController --resource`
+`php artisan make:controller EquipamentoController --resource`
+`php artisan make:controller OrdemServicoController --resource`
