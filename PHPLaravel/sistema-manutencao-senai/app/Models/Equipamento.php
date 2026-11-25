@@ -18,6 +18,6 @@ class Equipamento extends Model
         "setor",
         "criticidade",
         "status",
-        
     ];
+    
 }

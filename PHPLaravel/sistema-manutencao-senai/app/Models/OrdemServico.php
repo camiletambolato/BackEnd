@@ -23,4 +23,16 @@ class OrdemServico extends Model
         "prazo_limite",
         
     ];
+
+
+    //Retornar o catalogo de ordens de serviços
+    public static function todas(): array {
+        return self::query()->get()->all();
+    }
+
+    //localizar uma ordem de serviço pelo código único
+    public static function buscarPorCodigo(string $codigo): ?self {
+        return self::query()->where("codigo", $codigo)->first();
+    }
+
 }
