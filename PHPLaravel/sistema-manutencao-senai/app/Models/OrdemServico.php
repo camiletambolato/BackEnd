@@ -1,38 +1,40 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class OrdemServico extends Model
-{
-    use HasFactory; // uma Biblioteca para habilitar a fábrica de modelos
+/**
+ * Model Eloquent que representa ordens de servico de manutencao.
+ */
+final class OrdemServico extends Model {
+    protected $table = 'ordens_servico';
 
-    protected $table = "OrdemServico"; //nome da tabela no banco de dados
-
-    //atributos da tabela ativos(counas) ()
     protected $fillable = [
-        "codigo",
-        "titulo",
-        "equipamento_id",
-        "tipo",
-        "prioridade",
-        "status",
-        "tecnico",
-        "data_abertura",
-        "prazo_limite",
-        
+        'codigo',
+        'titulo',
+        'equipamento_id',
+        'tipo',
+        'prioridade',
+        'status',
+        'tecnico',
+        'data_abertura',
+        'prazo_limite',
     ];
 
-
-    //Retornar o catalogo de ordens de serviços
-    public static function todas(): array {
-        return self::query()->get()->all();
+    /**
+     * Retorna o equipamento associado a esta ordem de servico.
+     */
+    public function equipamento(): BelongsTo {
+        return $this->belongsTo(Equipamento::class);
     }
 
-    //localizar uma ordem de serviço pelo código único
-    public static function buscarPorCodigo(string $codigo): ?self {
-        return self::query()->where("codigo", $codigo)->first();
+    /**
+     * Define o campo codigo como chave de rota no Route Model Binding.
+     */
+    public function getRouteKeyName(): string {
+        return 'codigo';
     }
-
 }
